@@ -37,7 +37,7 @@ uint64_t heartbeatTimestamp = 0;
 bool isConnected = false;
 
 // Servidor
-const char* servidor = "192.168.10.199";
+const char* servidor = "192.168.200.87";
 int puerto = 3000;
 
 // Red
