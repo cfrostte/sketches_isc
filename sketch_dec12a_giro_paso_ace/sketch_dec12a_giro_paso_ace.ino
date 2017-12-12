@@ -33,17 +33,20 @@ float Angle[2];
 
 void setup()
 {
+
 Wire.begin();
 Wire.beginTransmission(MPU);
 Wire.write(0x6B);
 Wire.write(0);
 Wire.endTransmission(true);
 Serial.begin(9600);
-girar();
+
+stepper.begin(200, 1);
+
 }
 
 void loop()
-{
+{  
    //Leer los valores del Acelerometro de la IMU
    Wire.beginTransmission(MPU);
    Wire.write(0x3B); //Pedir el registro 0x3B - corresponde al AcX
@@ -77,12 +80,13 @@ void loop()
    //Mostrar los valores por consola
    Serial.print(" Angle X: "); Serial.print(Angle[0]); //Serial.print("\n");
    Serial.print(" Angle Y: "); Serial.println(Angle[1]); //Serial.print("\n------------\n");
- 
-   delay(1); //Nuestra dt sera, pues, 0.010, que es el intervalo de tiempo en cada medida
-}
 
-void girar() {
-    // Tell motor to rotate 360 degrees. That's it.
-    stepper.begin(100, 100);
-    stepper.rotate(360);
+   float anguloX = Angle[0];
+
+   if(anguloX>2.0) stepper.rotate(360);
+   if(anguloX<2.0 && anguloX>-2.0) stepper.rotate(0);
+   if(anguloX<-2.0) stepper.rotate(-360);
+
+   delay(1); //Nuestra dt sera, pues, 0.010, que es el intervalo de tiempo en cada medida
+   
 }

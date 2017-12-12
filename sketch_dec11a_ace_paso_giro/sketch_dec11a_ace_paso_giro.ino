@@ -13,7 +13,7 @@ A4988 stepper(MOTOR_STEPS, DIR, STEP, MS1, MS2, MS3);
 
 void setup() {
     // Set target motor RPM to 1RPM and microstepping to 1 (full step mode)
-    stepper.begin(100, 100);
+    stepper.begin(100, 1);
 }
 
 void loop() {
